@@ -1,4 +1,10 @@
 <?php
+include_once('contactManager.php');
+
+
+$CM = new ContactManager();
+$CM->getAll();
+
 $continue = true;
 while ($continue) {
     $line = readline("Entrez votre commande : ");
