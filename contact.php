@@ -1,40 +1,45 @@
 <?php
-class Contact {
-    function __construct(private int $id,private string $name,private string $email,private string $phone_number)
+class Contact
+{
+    function __construct(private int $id, private string $name, private string $email, private string $phone_number)
     {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->phone_number = $phone_number;
     }
-
-    public function getId(): int{
+    function __toString(): string
+    {
+        return $this->id . ' | ' . $this->name . ' | ' . $this->email . ' | ' . $this->phone_number . PHP_EOL;
+    }
+/* ----- Setters ------*/
+    function setId(int $value): void
+    {
+        $this->id = $value;
+    }
+    function setName(string $value): void
+    {
+        $this->name = $value;
+    }
+    function setEmail(string $value): void
+    {
+        $this->email = $value;
+    }
+    function setPhoneNumber(string $value): void
+    {
+        $this->phone_number = $value;
+    }
+    /* ----- Getters ------*/
+    function getId():int{
         return $this->id;
     }
-    public function getName():string{
+    function getName():string{
         return $this->name;
     }
-    public function getEmail():string{
+    function getEmail():string{
         return $this->email;
     }
-    public function getPhoneNumber():string{
+    function getPhone():string{
         return $this->phone_number;
     }
-
-    public function setId($id):void{
-        $this->id = $id;
-    }
-    public function setName($name):void{
-        $this->name = $name;
-    }
-    public function setEmail($email):void{
-        $this->email = $email;
-    }
-    public function setPhoneNumber($phone_number):void{
-        $this->phone_number = $phone_number;
-    }
-
-
-
-
 }

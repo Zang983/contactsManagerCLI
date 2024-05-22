@@ -1,4 +1,7 @@
 <?php
+/*
+Simple creation of the database connection; studying the singleton pattern is relevant.
+*/
 
 class DbConnect
 {
