@@ -3,22 +3,40 @@
 Simple creation of the database connection; studying the singleton pattern is relevant.
 */
 
-class DbConnect
+class DataBase
 {
+    private static $instance = null;
+    private $pdo;
 
-    public function __construct(private string $db, private string $user,private string $password) {
-        $this->db = $db;
-        $this->user = $user;
-        $this->password = $password;
+    private function __construct()
+    {
+        require_once ('configDB.php');
+        try {
+            $this->pdo = new PDO('mysql:host=localhost;dbname=' . $mysql_database, $mysql_user, $mysql_password);
+        } catch (PDOException $error) {
+            throw new Exception('Error : ' . $error->getMessage());
+        }
     }
 
-    public function getPDO()
+    public static function getDB()
     {
-        try {
-            return new PDO('mysql:host=localhost;dbname=' . $this->db , $this->user, $this->password);
-
-        } catch (PDOException $e) {
-            echo 'Error : ' . $e->getMessage();
+        if (is_null(self::$instance)) {
+            self::$instance = new DataBase();
         }
+        return self::$instance;
+    }
+
+    /*
+    Execute the provided query and return the result if there is one.
+    */
+    public function executeRequest(string $request, array $params = null)
+    {
+        $state = $this->pdo->prepare($request);
+        $state->execute($params);
+        return $state->fetchAll();
+    }
+    public function lastId()
+    {
+        return $this->pdo->lastInsertId();
     }
 }

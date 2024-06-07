@@ -105,7 +105,6 @@ class Command
     public function delete($id)
     {
         if ($this->contactManager->idIsValid($id)) {
-            echo $this->contactManager->idIsValid($id);
             $this->contactManager->deleteOne($id);
             echo 'Le contact a bien été supprimé.' . PHP_EOL;
         } else
